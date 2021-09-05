@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MySQL数据生成器</title>
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+
+    <div class="card" id="app">
+        <div class="table-select-title">选择表</div>
+        <select name="" id="" class="table-select" v-model="tableName">
+            <option value="" v-for="item in tableList" :value="item.TABLE_NAME">{{ item.TABLE_NAME }}</option>
+        </select>
+        <div class="table-structure-title">表结构</div>
+        <table border="1">
+            <tr>
+                <th>序号</th>
+                <th>字段名</th>
+                <th>字段类型</th>
+                <th>生成类型</th>
+                <th>选项</th>
+                <th>注释</th>
+            </tr>
+            <tr v-for="(item, index) in columnsData">
+                <td>{{ index }}</td>
+                <td>{{ item.COLUMN_NAME }}</td>
+                <td>{{ item.DATA_TYPE }}</td>
+                <td class="option">
+                    <select v-model="item.option">
+                        <option v-for="val, key in options" :value="key">{{ val }}</option>
+                    </select>
+                </td>
+                <td>选项</td>
+                <td>{{ item.COLUMN_COMMENT }}</td>
+            </tr>
+        </table>
+
+        <div class="save-btn-wrap">
+            <div>
+                <span>生成</span>
+                <input type="text">
+                <span>行</span>
+            </div>
+            <button @click="saveData">生成</button>
+        </div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/index.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            tableList: [],
+            tableName: "",
+            columnsData: [],
+            options: {
+                "name": "名字",
+                "address": "地点",
+                "phone": "手机号",
+                "random": "随即范围数",
+                "country": "国家",
+                "email": "邮箱",
+                "date": "时间",
+                "text": "文本",
+                "string": "随机字符串"
+            }
+        },
+        created() {
+            this.getTableList()
+        },
+        watch: {
+            tableName(newVal, oldVal) {
+                this.getColumns(this.tableName)
+            }
+        },
+        methods: {
+            getColumns(tableName) {
+                let url = "/columns?tableName=" + tableName
+                fetch(url).then(response => response.json()).then(data => {
+                    this.columnsData = data
+                })
+            },
+            getTableList() {
+                let url = "/list"
+                fetch(url).then(response => response.json()).then(data => {
+                    data.forEach(item => {
+                        item.option = ""
+                    })
+                    this.tableList = data
+                    this.tableName = data.length > 0 && data[0].TABLE_NAME
+                })
+            },
+            saveData() {
+                let columns = []
+                this.columnsData.forEach(item => {
+                    let obj = {}
+                    obj[item.COLUMN_NAME] = item.option
+                    columns.push(obj)
+                })
+                console.log(columns)
+            }
+
+        }
+    })
+</script>
+</html>

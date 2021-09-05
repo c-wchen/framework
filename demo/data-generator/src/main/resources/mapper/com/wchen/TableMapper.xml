@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wchen.mapper.TableMapper">
+
+
+    <insert id="insertData" useGeneratedKeys="true" keyProperty="id">
+        insert ignore into #{tableName}
+        <foreach collection="params.keys" item="key" open="(" close=")" separator="," >
+            #{key}
+        </foreach>
+        values
+        <foreach collection="params.keys"  item="key" open="(" close=")" separator=",">
+            #{params.${key}}
+        </foreach>
+    </insert>
+
+    <!--<update id="updateInfoByID" parameterType="java.util.Map">-->
+    <!--    UPDATE ${tableName} set-->
+    <!--    <foreach item="value" index="key" collection="params" separator=",">-->
+    <!--        <if test="key != 'id'">-->
+    <!--            ${key} = #{value}-->
+    <!--        </if>-->
+    <!--    </foreach>-->
+    <!--    WHERE-->
+    <!--    <foreach item="value" index="key" collection="params" separator=",">-->
+    <!--        <if test="key == 'id'">-->
+    <!--            ID = #{value}-->
+    <!--        </if>-->
+    <!--    </foreach>-->
+    <!--</update>-->
+</mapper>

@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: #EFEFEF;
+}
+
+.card {
+    position: relative;
+    top: 10%;
+    width: 80%;
+    margin: 0 auto;
+    background: #FFF;
+    border-radius: 5px;
+}
+.table-select {
+    width: 100%;
+    padding: 5px 0;
+}
+.table-select-title {
+    font-size: 0.8em;
+    padding: 5px;
+}
+.table-structure-title {
+    font-size: 0.8em;
+    margin-top: 30px;
+    padding: 5px;
+}
+table,
+tbody {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+tr:first-child {
+    background: #dfdfdf;
+}
+tr:nth-child(2n) {
+    background: #dcffd8;
+}
+tr {
+    border: #cccccc 1px solid;
+}
+tr > td,
+tr > th {
+    padding: 10px 0;
+    text-align: center;
+}
+table .option {
+    min-width: 80px;
+}
+
+.save-btn-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 20px;
+    background: #dcffd8;
+    min-height: 60px;
+}
+.save-btn-wrap > div {
+    min-width: 130px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.save-btn-wrap input {
+    max-width: 50px;
+    padding: 4px;
+    outline: none;
+    border: none;
+}
+.save-btn-wrap button {
+    background: #6cab3d;
+    color: #FFF;
+    font-weight: bold;
+    border: 0;
+    outline: 0;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
