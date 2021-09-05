@@ -1,0 +1,6 @@
+sms:
+  regionId: cn-hangzhou
+  accessId: LTAI4GFr8j5pmatePUBmPqWa
+  secret: vMmmt8SgnhOZcO9YRQszBTwx3isJcz
+  signName: 忘尘应用商城
+  templateCode: SMS_205133950
