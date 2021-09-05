@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+
+# 服务应用名字
+# 服务应用中心
+dubbo:
+  application:
+    name: dubbo-provider
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  scan:
+    base-packages: com.wchen.service
+# 那些服务被注册
