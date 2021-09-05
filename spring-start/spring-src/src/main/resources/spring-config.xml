@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config></context:annotation-config>
+    <context:component-scan base-package="com.wchen.pojo"/>
+<!--    <import resource="spring-dao.xml"/>-->
+<!--    <bean id="people" class="com.wchen.pojo.People"/>-->
+    <bean id="student" class="com.wchen.pojo.Student" lazy-init="true"  primary="true">
+        <constructor-arg value="chen"/>
+        <constructor-arg value="21"/>
+        <constructor-arg>
+            <array>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </array>
+        </constructor-arg>
+        <constructor-arg>
+            <map>
+                <entry key="name" value="chen"/>
+                <entry key="age" value="21"/>
+            </map>
+        </constructor-arg>
+        <constructor-arg>
+            <set>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </set>
+        </constructor-arg>
+        <constructor-arg>
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </constructor-arg>
+
+        <property name="set">
+            <set>
+                <value>12123</value>
+                <value>1212</value>
+            </set>
+        </property>
+        <property name="properties">
+            <value>
+                username=chenwangchen
+                email=cwangcing@gmail.com
+            </value>
+        </property>
+    </bean>
+    <bean id="teacher" class="com.wchen.pojo.Teacher">
+        <property name="name">
+            <idref bean="student"/>
+        </property>
+    </bean>
+
+
+<!--    <bean id="testConfigurer" class="com.wchen.config.TestBeanDefinitionRegistryPostProcessor"/>-->
+    <bean class="com.wchen.config.TestBeanPostProcessor"/>
+</beans>

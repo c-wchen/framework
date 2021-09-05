@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.wchen.service.impl"/>
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy/>
+
+    <bean id="personProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interfaces" value="com.wchen.service.FlyService"/>
+        <property name="interceptorNames" value="flyServiceImpl"/>
+        <property name="target" ref="personServiceImpl"/>
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean id="advice" class="com.wchen.aop.Advice"/>
+    <bean id="target" class="com.wchen.service.impl.Target"/>
+    <context:component-scan base-package="com.wchen.service"/>
+
+    <aop:config>
+        <!--  切面， 通知和切入点之间的关系  -->
+        <aop:pointcut id="comm" expression="execution(* *.meth*(..))"/>
+        <aop:aspect ref="advice">
+            <!-- 通知类的方法和目标对象进行关联 -->
+            <aop:before method="before" pointcut-ref="comm"/>
+            <aop:after method="after" pointcut-ref="comm"/>
+            <aop:after-throwing method="afterThrowing" pointcut-ref="comm"/>
+            <aop:after-returning method="afterReturning" pointcut-ref="comm"/>
+            <aop:around method="around" pointcut-ref="comm"/>
+        </aop:aspect>
+    </aop:config>
+
+
+
+
+
+</beans>
