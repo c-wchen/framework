@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Index</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<textarea id="message" rows="3"></textarea>
+<br/>
+<button id="sendMessage">发送</button>
+</body>
+</html>
+<script>
+
+    var webSocket;
+    if (window.WebSocket)
+    {
+
+
+        setTimeout(function() {
+            axios.get("/get")
+        }, 1000)
+        webSocket = new WebSocket("ws://localhost:8080/websocket");
+
+        //连通之后的回调事件
+        webSocket.onopen = function()
+        {
+            // webSocket.send("发送数据");
+        };
+
+        //接收后台服务端的消息
+        webSocket.onmessage = function (evt)
+        {
+            var received_msg = evt.data;
+            document.getElementById("message").value = received_msg
+            // alert("数据已接收:" + received_msg);
+
+        };
+
+        //连接关闭的回调事件
+        webSocket.onclose = function()
+        {
+            alert("连接已关闭...");
+        };
+        document.getElementById("sendMessage").onclick = function() {
+            let message = document.getElementById("message").value
+            if (message == "") return;
+            console.log(message)
+            webSocket.send(message)
+        }
+
+    }
+
+</script>
