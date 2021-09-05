@@ -1,0 +1,16 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: application
+  datasource:
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database-platform:  org.hibernate.dialect.MySQL5InnoDBDialect
